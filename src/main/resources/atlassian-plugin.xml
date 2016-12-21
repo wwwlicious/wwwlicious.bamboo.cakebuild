@@ -1,0 +1,50 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/cake-small.png</param>
+        <param name="plugin-logo">images/cake-small.png</param>
+
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="english" location="com.wwwlicious"/>
+
+    <resource type="download" name="cake/" location="cake/"/>
+
+
+    <taskType name="Cake Build" class="com.wwwlicious.CakeBuildTask" key="Cake">
+        <description>A task to execute Cake (C# Make) Scripts</description>
+        <category name="builder"/>
+        <capabilityDefaultsHelper class="com.wwwlicious.CakeBuildCapabilityHelper"/>
+        <configuration class="com.wwwlicious.CakeBuildTaskConfigurator"/>
+        <resource type="freemarker" name="edit" location="EditCakeBuild.ftl"/>
+        <resource type="download" name="icon" location="images/cake-small.png"/>
+    </taskType>
+
+    <capabilityType key="cakeBuildCapabilityHelper" name="CakeBuild" class="com.wwwlicious.CakeBuildCapabilityHelper" sortOrder="1000">
+        <description>CakeBuild Capability Type</description>
+        <category>Cake</category>
+        <resource type="freemarker" name="edit" location="editCakeBuildCapability.ftl"/>
+    </capabilityType>
+
+    <web-section key="nuget_admin_section" name="Nuget" location="system.admin" weight="110">
+        <label key="Nuget" />
+    </web-section>
+
+    <web-item key="nuget_config" name="Nuget Config" section="system.admin/nuget_admin_section" weight="10">
+        <description key="item.nuget.desc">Configure Nuget</description>
+        <label key="Configure Nuget" />
+        <link linkId="nuget_config_link">/nuget</link>
+    </web-item>
+
+    <!-- add our web resources
+    <web-resource key="helloworld-resources" name="CakeBuild Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>com.wwwlicious</context>
+    </web-resource>
+    -->
+</atlassian-plugin>
